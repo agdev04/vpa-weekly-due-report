@@ -54,7 +54,7 @@ app.post("/", async (req, res) => {
       });
   
       // Save file in public folder
-      const fileName = new Date().toLocaleDateString().replace(/\/| |,/g, "-")+".xlsx";
+      const fileName = new Date().toLocaleDateString('en-AU').replace(/\//g, "-") +".xlsx";
       const filePath = path.join(publicFolder, fileName);
       await workbook.xlsx.writeFile(filePath);
       
