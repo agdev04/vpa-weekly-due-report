@@ -46,8 +46,22 @@ app.post("/", async (req, res) => {
           created_at: item.created_at,
           payment_status: item.payment_status,
           is_overdue: item.is_overdue ? 
-            { value: "DUE", font: { color: { argb: "FFFF0000" } } } : 
-            { value: "", font: { color: { argb: "FF000000" } } },
+            {
+              value: "DUE",
+              fill: { 
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'F08080' },
+              },
+            } : 
+            {
+              value: "",
+              fill: { 
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FFFFFF' },
+              },
+            },
           remaining_amount: Number(item.remaining_amount),
           customer_name: item.customer_name,
           customer_company: item.customer_company,
