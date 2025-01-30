@@ -41,27 +41,24 @@ app.post("/", async (req, res) => {
   
       // Add rows
       content.forEach((item) => {
+
+        item.is_overdue ? 
+            worksheet.getRow(worksheet._rows.length).getCell(4).fill = { 
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: { argb: 'F08080' },
+            } : 
+            worksheet.getRow(worksheet._rows.length).getCell(4).fill = { 
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: { argb: 'FFFFFF' },
+            }
+            
         worksheet.addRow({
           order_id: typeof item.order_id === "string" ? item.order_id.replace(/#/g, "") : item.order_id,
           created_at: item.created_at,
           payment_status: item.payment_status,
-          is_overdue: item.is_overdue ? 
-            {
-              value: "DUE",
-              fill: { 
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'F08080' },
-              },
-            } : 
-            {
-              value: "",
-              fill: { 
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FFFFFF' },
-              },
-            },
+          is_overdue: item.is_overdue ? "DUE" : "",
           remaining_amount: Number(item.remaining_amount),
           customer_name: item.customer_name,
           customer_company: item.customer_company,
