@@ -30,6 +30,7 @@ app.post("/", async (req, res) => {
         { header: "Order No.", key: "order_id", width: 15 },
         { header: "Order Date", key: "created_at", width: 20 },
         { header: "Payment Status", key: "payment_status", width: 15 },
+        { header: "Is Overdue", key: "is_overdue", width: 15 },
         { header: "Amount", key: "remaining_amount", width: 10 },
         { header: "Name", key: "customer_name", width: 25 },
         { header: "Company Name", key: "customer_company", width: 30 },
@@ -44,6 +45,7 @@ app.post("/", async (req, res) => {
           order_id: typeof item.order_id === "string" ? item.order_id.replace(/#/g, "") : item.order_id,
           created_at: item.created_at,
           payment_status: item.payment_status,
+          is_overdue: item.is_overdue,
           remaining_amount: Number(item.remaining_amount),
           customer_name: item.customer_name,
           customer_company: item.customer_company,
@@ -58,7 +60,7 @@ app.post("/", async (req, res) => {
       const filePath = path.join(publicFolder, fileName);
       await workbook.xlsx.writeFile(filePath);
       
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = `${req.protocol}://${req.get("host")}`; 
 
       res.json({
         success: true,
