@@ -41,26 +41,6 @@ app.post("/", async (req, res) => {
   
       // Add rows
       content.forEach((item) => {
-
-        item.is_overdue ? 
-            worksheet.getRow(worksheet._rows.length + 1).getCell(4).fill = { 
-              type: 'pattern',
-              pattern: 'solid',
-              fgColor: { argb: 'F08080' },
-            } : 
-            worksheet.getRow(worksheet._rows.length + 1).getCell(4).fill = { 
-              type: 'pattern',
-              pattern: 'solid',
-              fgColor: { argb: 'FFFFFF' },
-            }
-
-        // worksheet.getRow(worksheet._rows.length).getCell(4).border = {
-        //     top: { style: 'thin' },
-        //     left: { style: 'thin' },
-        //     bottom: { style: 'thin' },
-        //     right: { style: 'thin' },
-        // }
-
         worksheet.addRow({
           order_id: typeof item.order_id === "string" ? item.order_id.replace(/#/g, "") : item.order_id,
           created_at: item.created_at,
@@ -73,6 +53,14 @@ app.post("/", async (req, res) => {
           customer_suburb: item.customer_suburb,
           customer_state: item.customer_state,
         });
+
+        if(item.is_overdue){
+          worksheet.getRow(worksheet._rows.length).getCell(4).fill = { 
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'F08080' },
+          } 
+        }
       });
   
       // Save file in public folder
