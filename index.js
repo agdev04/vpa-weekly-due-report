@@ -45,7 +45,9 @@ app.post("/", async (req, res) => {
           order_id: typeof item.order_id === "string" ? item.order_id.replace(/#/g, "") : item.order_id,
           created_at: item.created_at,
           payment_status: item.payment_status,
-          is_overdue: item.is_overdue,
+          is_overdue: item.is_overdue ? 
+            { value: "DUE", font: { color: { argb: "FFFF0000" } } } : 
+            { value: "", font: { color: { argb: "FF000000" } } },
           remaining_amount: Number(item.remaining_amount),
           customer_name: item.customer_name,
           customer_company: item.customer_company,
