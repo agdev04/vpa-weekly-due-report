@@ -53,7 +53,7 @@ app.post("/", async (req, res) => {
         });
 
         if(item.is_overdue){
-          worksheet.getRow(worksheet._rows.length).getCell(4).fill = { 
+          worksheet.getRow(worksheet._rows.length).getCell(3).fill = { 
             type: 'pattern',
             pattern: 'solid',
             fgColor: { argb: 'F08080' },
